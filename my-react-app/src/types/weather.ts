@@ -33,10 +33,10 @@ export interface WeatherData {
 }
 
 export interface HourlyData {
-  time: string;   // формат HH:mm або 14:00
+  time: string;  
   description: string;     
-  temperature: string; // наприклад: "+23°"
-  iconUrl: string;     // посилання на іконку
+  temperature: string; 
+  iconUrl: string;    
 }
 
 export interface WeatherDetailItem {

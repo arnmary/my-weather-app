@@ -29,7 +29,7 @@ const DateTimeDisplay:React.FC = () => {
         
        <>
 <div className='text-white font-roboto text-sm opacity-80'>
-{`${hours}:${minutes} - ${weekday}, ${day}  ${month}  ${year}`}
+     {`${hours}:${minutes} - ${weekday}, ${day}  ${month}  ${year}`}
 </div>
        </>
     );

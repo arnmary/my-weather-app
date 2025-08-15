@@ -1,0 +1,88 @@
+
+.inputCont {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255,255, 1) ;
+    padding-left: 1%;
+}
+.weatherScreenCont,
+h3 {
+    padding:2% 6%;
+}
+p {
+    padding:0 0 2% 6%;
+}
+.icon {
+    padding: 0 6%;
+}
+.ceparat {
+    margin: 0 6%;
+}
+.rightPart {
+    padding-top: 8%;
+ }
+.hourlyBlock {
+    padding:2% 4%;
+}
+.hourlyCont {
+    padding: 6% 8%;
+ }
+ @media screen and (max-width: 968px){
+    .mainPart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .rightPart {
+        width: 100%;
+        margin-top: 60%;
+    }
+    .weatherCard {
+        position:absolute;
+        top: 40%;
+        left: -14%;
+        z-index: 500;
+    }
+    .inputCont {
+        width: 36%;  
+    }
+    h3 {
+    padding:2% 4%;
+    }
+    p{
+    padding:0 0 2% 4%;
+    }
+    .icon {
+    padding: 0 4%;
+    }
+    .hourlyCont {
+    padding: 6% 10%;
+    }
+ }
+@media screen and (max-width: 485px) {
+    .rightPart {
+        margin-top: 80%;
+    }
+    .mainTemp {
+        font-size: 60px;
+    }
+    h2 {
+         font-size: 2rem;
+    }
+    .dateInfo{
+         right: -175px;
+         top: 67px
+    }
+    .weatherCard{
+         top: 33%;
+    }
+    .inputCont{
+         width: 55%;
+      
+    }
+    .header{
+         width: 90%; 
+    }
+    .weatherScreenCont{
+         padding: 6% 10% ;
+    }
+}

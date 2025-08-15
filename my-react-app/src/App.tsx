@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-
 import './App.css';
-import Logo from './components/Logo';
+import './style.css';
 import WeatherCard from './components/WeatherCard';
 import DateTimeDisplay from './components/DateTimeDisplay';
 import HourlyForecast from './components/HourlyForecast';
-import Input from './components/Input';
+import Header from './components/Header';
 import WeatherScreen from './components/WeatherScreen';
 import type { WeatherData } from './types/weather';
 import type { HourlyData } from './types/weather';
@@ -23,8 +22,8 @@ const hourlyMockData = [
 
 
 const mockWeatherData: WeatherData ={
-  name:'Lviv',
-  weather:[{
+name:'Lviv',
+   weather:[{
     description:'Clear Sky',
     icon:'02d',
     main: 'Clouds',
@@ -39,8 +38,8 @@ main:{
   humidity: 60,
 },
 wind: {
-speed: 5,
-deg: 250,
+  speed: 5,
+  deg: 250,
 },
 
 dt:0,
@@ -53,10 +52,44 @@ coord:{
 
 function App() {
 
-   const [weatherData, setWeatherData] = useState<WeatherData>(mockWeatherData);
-  const [hourlyData, setHourlyData] =useState<HourlyData[]>(hourlyMockData);
- 
+    const [weatherData, setWeatherData] = useState<WeatherData>(mockWeatherData);
+    const [hourlyData, setHourlyData] =useState<HourlyData[]>(hourlyMockData);
 
+ // Restore from localStorage
+  useEffect(()=>{
+    const savedWeather = localStorage.getItem('weatherData');
+    const savedHourly = localStorage.getItem('hourlyData');
+    const savedTime = localStorage.getItem('weatherDataTimestamp');
+
+    if(savedWeather && savedHourly && savedTime){
+      const now = Date.now();
+      const diff =now -Number(savedTime);
+      if (diff< 60 * 60 * 1000) {
+       setWeatherData(JSON.parse(savedWeather));
+       setHourlyData(JSON.parse(savedHourly));
+       return;
+      }
+    }
+
+     fetchHourly('Lviv');
+
+  },[])
+
+  //Save to LocalStorage
+  useEffect(()=>{
+    if (weatherData) {
+      localStorage.setItem('weatherData',JSON.stringify(weatherData));
+      localStorage.setItem('weatherDataTimestamp', Date.now().toString());
+    }
+  },[weatherData]);
+
+  useEffect(()=>{
+    if (hourlyData.length > 0) {
+      localStorage.setItem('hourlyData', JSON.stringify(hourlyData));
+    }
+  },[hourlyData]);
+
+// get weather from api
   const fetchHourly = async (city: string) => {
     try {
       const rawData = await getHourlyForecast(city);
@@ -71,27 +104,31 @@ function App() {
       console.error('Error fetching hourly forecast:', error);
     }
   };
-  
+  // search processing
   const handleSearch = (city: string, data: WeatherData) => {
     setWeatherData(data);
-    fetchHourly(city);
-    
+    fetchHourly(city); 
   };
   useEffect(() => {
     fetchHourly('Lviv');
   }, []);
+
   return (
     <>
-    <div className="bg-cover bg-center min-h-screen flex justify-between items-center px-0  
-      bg-mobile-bg
-      sm:bg-tablet-bg
-      lg:bg-desktop-bg"
-      >
-        <div className="flex flex-col items-center justify-between gap-96 h-auto">
-          <div className="absolute top-20">
-            <Logo />
-          </div>
-          <div className="relative">
+
+    <div className="
+    bg-[url('/bg-mobile.png')] 
+    sm:bg-[url('/bg-tablet.png')] 
+    lg:bg-[url('/bg-desktop.png')] bg-cover bg-center min-h-screen flex flex-col">
+      <div className='w-full flex flex-row justify-between'>
+           <Header onSearch={handleSearch} />
+      </div>
+
+<div className='mainPart flex flex-row justify-between items-center flex-1'>
+   <div className="weatherCard flex flex-col items-center justify-between gap-9 h-auto">
+   
+
+          <div className="relative w-1/3">
             {weatherData?.weather[0] &&(
                 <WeatherCard
                  city={weatherData.name}
@@ -103,25 +140,28 @@ function App() {
 
             }
           
-            <span className="absolute bottom-9 right-[-117px] ">
+            <span className="absolute bottom-2 right-[-230px] dateInfo">
               <DateTimeDisplay />
             </span>
           </div>
         </div>
 
-        <div className="rightPart w-1/3 bg-white/0 backdrop-blur-sm me-0 ml-auto">
-          <Input onSearch={handleSearch} />
+
+        <div className="rightPart  w-1/3 bg-white/0 backdrop-blur-sm me-0 ml-auto pt-[37px]">
           <WeatherScreen data={weatherData} />
-          <div className=' z-50 bg-slate-50 h-[1px] ml-3 mr-6 w-3/4'></div>
-          <div className=" mt-10 pt-6 backdrop-blur-sm  w-full">
-            <h2 className="text-white font-roboto text-start text-xl mb-4  w-3/4 mx-3 pl-5">
+          <div className='ceparat z-50 bg-slate-50 h-[1px]  m-6 w-[90%]'>
+          
+          </div>
+          <div className=" backdrop-blur-sm  w-full hourlyBlock ">
+            <h3 className="text-white text-center sm:text-start text-xl  w-3/4 ">
            Today’s Weather Forecast...
-            </h2>
+            </h3>
             <HourlyForecast data={hourlyData} />
           </div>
         </div>
       </div>
-
+</div>
+     
     </>
   )
 }

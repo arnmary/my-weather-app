@@ -7,7 +7,7 @@ const DetailsWeather: React.FC<WeatherDetailsProps> = ({ weatherDescription, det
   return (
     <div  >
       <p className='text-white font-roboto text-start text-lg opacity-80 mt-16 ps-5'>Weather Details...</p>
-      <h2 className='text-start font-roboto text-white text-lg mt-10'>{weatherDescription}</h2>
+      <h3 className='text-start font-roboto text-white text-lg mt-10'>{weatherDescription}</h3>
       
       {details.map((detail, index) => (
         <div

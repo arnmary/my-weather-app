@@ -26,7 +26,8 @@ type InputProps = {
   };
 
   return (
-    <div className="flex items-center font-roboto justify-between bg-white/0 py-2 px-3 w-full max-w-sm backdrop-blur-sm shadow-sm mt-8">
+    <>
+        <div className="flex flex-row items-center font-roboto justify-between bg-white/0 py-2 px-3 w-full max-w-sm inputCont">
       <input
         type="text"
         placeholder="Search Location"
@@ -37,14 +38,19 @@ type InputProps = {
             handleSearch();
           }
         }}
-        className="ps-10 pb-1 appearance-none font-roboto text-xl bg-transparent border-b border-b-white w-full text-white/70 focus:outline-none"
+        className="ps-10 pb-2 input  font-roboto text-xl bg-transparent border-b border-b-white  text-white/70 "
       />
 
       <MagnifyingGlassIcon
         onClick={handleSearch}
-        className="h-8 w-8 pb-3 text-white border-b text-lg border-b-white mr-2 cursor-pointer"
+        className="flex-shrink-0 h-8 w-8 pb-3 text-white border-b text-lg border-b-white mr-2 cursor-pointer"
       />
+      
     </div>
+    
+    </>
+
+    
   );
 };
 
