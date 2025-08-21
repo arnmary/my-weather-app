@@ -38,7 +38,7 @@ type InputProps = {
             handleSearch();
           }
         }}
-        className="ps-10 pb-2 input  font-roboto text-xl bg-transparent border-b border-b-white  text-white/70 "
+        className="ps-10 pb-2 input  font-roboto text-xl bg-transparent border-b border-b-white  text-white"
       />
 
       <MagnifyingGlassIcon

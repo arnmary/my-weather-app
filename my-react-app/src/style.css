@@ -63,17 +63,19 @@ p {
         margin-top: 80%;
     }
     .mainTemp {
-        font-size: 60px;
+        font-size: 2.5rem;
     }
     h2 {
-         font-size: 2rem;
+         font-size: 1.75rem;
     }
     .dateInfo{
          right: -175px;
          top: 67px
     }
     .weatherCard{
-         top: 33%;
+         top: 22%;
+         left: -15%;
+         gap: 2%;
     }
     .inputCont{
          width: 55%;
